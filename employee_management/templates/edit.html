@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #fbd3e9, #bb377d);
+            font-family: Arial;
+            text-align: center;
+            padding-top: 40px;
+        }
+        input, select {
+            padding: 8px;
+            width: 200px;
+            margin: 8px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #bb377d;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Employee</h2>
+    <form method="post">
+        <input type="text" name="name" value="{{ employee.name }}" required /><br>
+        <input type="date" name="dob" value="{{ employee.dob }}" required /><br>
+        <input type="text" name="position" value="{{ employee.position }}" required /><br>
+        <input type="number" name="salary" value="{{ employee.salary }}" required /><br>
+        <select name="department_id" required>
+            {% for dept in departments %}
+            <option value="{{ dept.id }}" {% if dept.id == employee.department_id %}selected{% endif %}>{{ dept.department_name }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Update</button>
+    </form>
+    <br><a href="/view">🔙 Back</a>
+</body>
+</html>

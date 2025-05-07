@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Employees</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #d299c2, #fef9d7);
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #7b1fa2;
+        }
+        .domain {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #7b1fa2;
+            color: white;
+        }
+        .no-employee {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .btn {
+            display: block;
+            width: max-content;
+            margin: 30px auto 0;
+            padding: 10px 25px;
+            background-color: #8e24aa;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Employees</h2>
+        <p class="domain">Domain: <strong>{{ domain }}</strong></p>
+
+        {% if employees %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Age</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.dob.strftime('%Y-%m-%d') }}</td>
+                <td>{{ emp.age }}</td>
+                <td>{{ emp.position }}</td>
+                <td>{{ emp.salary }}</td>
+                <td>{{ emp.department_name }}</td>
+                <td>
+                    <a href="{{ url_for('edit', id=emp.id) }}">Edit</a> |
+                    <a href="{{ url_for('delete', id=emp.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="no-employee">No employees found for this domain.</p>
+        {% endif %}
+
+        <a href="{{ url_for('select') }}" class="btn">Back to Home</a>
+    </div>
+</body>
+</html>

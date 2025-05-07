@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Employee</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #005792;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #005792;
+            color: white;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #005792;
+            color: white;
+        }
+        .no-result {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .btn-back {
+            display: block;
+            margin: 30px auto 0;
+            padding: 10px 25px;
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .domain-text {
+            text-align: center;
+            margin-top: -10px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Search Employees</h2>
+        <p class="domain-text">Domain: <strong>{{ domain }}</strong></p>
+
+        <form method="post">
+            <input type="text" name="query" placeholder="Enter name or position" value="{{ query or '' }}">
+            <input type="submit" value="Search">
+        </form>
+
+        {% if employees %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Age</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Department</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.dob.strftime('%Y-%m-%d') }}</td>
+                <td>{{ emp.age }}</td>
+                <td>{{ emp.position }}</td>
+                <td>{{ emp.salary }}</td>
+                <td>{{ emp.department_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% elif query %}
+            <p class="no-result">No results found for "<strong>{{ query }}</strong>"</p>
+        {% endif %}
+
+        <a href="{{ url_for('select') }}" class="btn-back">Back to Home</a>
+    </div>
+</body>
+</html>

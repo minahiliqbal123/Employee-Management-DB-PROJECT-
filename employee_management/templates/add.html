@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #79d6f0, #11437fbe);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #005792;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #005792;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-back {
+            display: block;
+            margin: 25px auto 0;
+            background-color: #6a11cb;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Employee</h2>
+        <form method="POST">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Date of Birth:</label>
+            <input type="date" name="dob" required>
+
+            <label>Position:</label>
+            <input type="text" name="position" required>
+
+            <label>Salary:</label>
+            <input type="number" name="salary" required>
+
+            <label>Department:</label>
+            <select name="department_id" required>
+                {% for dept in departments %}
+                <option value="{{ dept.id }}">{{ dept.department_name }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Add Employee</button>
+        </form>
+
+        <a href="{{ url_for('select') }}" class="btn-back">Back to Home</a>
+    </div>
+</body>
+</html>
